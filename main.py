@@ -2,6 +2,12 @@ import re
 import requests
 import gender_guesser.detector as gender
 d = gender.Detector()
+from države import drzava
+from Wikipedia_države_in_kode import wikipedia_države_in_kode
+from Wikipedia_populacija_in_države import wikipedia_populacija                     
+
+celine = drzava()[0]
+drzave = drzava()[1]
 print("Delam, ne me motit")
 def zlepi(seznam):
     if seznam == []:
@@ -10,6 +16,15 @@ def zlepi(seznam):
         return seznam[0] + zlepi(seznam[1:])
 def odstrani_vejice_in_intigiraj(niz):
     return(int(zlepi(niz.split(","))))
+def spremeni_tip_datuma(datum_v_besedni_obliki):
+    datum_1 = datum_v_besedni_obliki.split()
+    datum_1[1] = datum_1[1][:-1]
+    if len(datum_1[1]) == 1:
+        datum_1[1] = "0" + datum_1[1]
+    koledar = {"Jan": "01",  "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun":"06", "Jul": "07","Aug": "08", "Sep": "09", "Oct": "10", "Nov":"11", "Dec":"12"}
+    return datum_1[2]  +"-" + koledar[datum_1[0]] + '-' + datum_1[1]
+    
+
 tabela_skupna = []
 tabela_razdelki = []
 for i in range(1,2):
@@ -58,7 +73,7 @@ for šahist in tabela_skupna:
         strela_elo = int(skoraj_strela.group(1))
     if skoraj_metek != None:
         metek_elo = int(skoraj_metek.group(1))
-    za_ime = (requests.get(f"https://www.chess.com/member/{šahist_username[1:-1]}/stats/rapid?days=90"))
+    za_ime = (requests.get(f"https://www.chess.com/member/{šahist_username[1:-1]}"))
     datoteka_za_ime = za_ime.text
     ime_vzorec = r'firstName: "([^,]*)"'
     priimek_vzorec = r'lastName: "([^,]*)"'
@@ -70,12 +85,15 @@ for šahist in tabela_skupna:
         priimek = priimek_skoraj.group(1)
     if ime_skoraj != None:
         ime = ime_skoraj.group(1)
+    print(ime)
     opazovalci = "ni_javno"
     opazovalci_vzorec =  r'<div class="profile-header-details-value">(.*)</div> Views'
     skoraj_opazovalci = re.search(opazovalci_vzorec, datoteka_za_ime)
     if skoraj_opazovalci != None:
         opazovalci = skoraj_opazovalci.group(1)
-    tabela_razdelki.append([int(šahist_rang),šahist_username[1:-1],ime, priimek, int(elo),id,država[1:-1],država_številka,naslov,int(skupaj_igre),skupaj_zmage,skupaj_porazi,skupaj_remiji,strela_elo,metek_elo,odstrani_vejice_in_intigiraj(opazovalci)])
+    datum_vzorec = r'<div class="profile-header-details-value">(.*)</div> Joined'
+    datum = (re.search(datum_vzorec,datoteka_za_ime).group(1))
+    tabela_razdelki.append([int(šahist_rang),šahist_username[1:-1],ime, priimek, int(elo),id,država[1:-1],država_številka,naslov,int(skupaj_igre),skupaj_zmage,skupaj_porazi,skupaj_remiji,strela_elo,metek_elo,odstrani_vejice_in_intigiraj(opazovalci),celine.get((drzave[str(država_številka)]),"Europe"),spremeni_tip_datuma(datum)])
     
 for številka in range(len(tabela_razdelki)):
    if " " in tabela_razdelki[številka][2] and tabela_razdelki[številka][3] == "":
@@ -97,11 +115,18 @@ for oseba in tabela_razdelki:
         print(f"{oseba[2]} {oseba[3]}-{d.get_gender(ime)}")
     else:
         ostalo = ostalo + 1
-    
 print(moški_skupno)
 print(ženskse_skupno)
 print(ostalo)
-print(requests.get(f"https://www.chess.com/callback/leaderboard/live/rapid?gameType=live&page={1}&totalPage=10000").text)
+for oseba in tabela_razdelki:
+    print(wikipedia_populacija()[oseba[6]])
+
+with open("Glavna_tabela.csv", "w") as dat:
+    dat.write("Rang,Uporabniško ime,Ime,Priimek,Elo,ID,Država,Številka države,Naslov,Skupno igre,Skupno zmage,Skupno remiji,Skupno porazi,Strela elo,Metek elo,Opazovalci,Celina,Datum,Leto,Reciprikal prebivalstva države\n")
+    for oseba in tabela_razdelki:
+        dat.write(f"{oseba[0]},{oseba[1]},{oseba[2]},{oseba[3]},{oseba[4]},{oseba[5]},{oseba[6]},{oseba[7]},{oseba[8]},{oseba[9]},{oseba[10]},{oseba[12]},{oseba[11]},{oseba[13]},{oseba[14]},{oseba[15]},{oseba[16]},{oseba[17]},{int(oseba[17][:4])},{1 / (wikipedia_populacija()[oseba[6]])}\n")
+#print(requests.get(f"https://www.chess.com/callback/leaderboard/live/rapid?gameType=live&page={1}&totalPage=10000").text)
+
 #naredi queary za https://www.chess.com/callback/member/stats/{username}
 #ideja lahko narišeš graf, highest winning opponent
 #v totem filu ko ga ze mas za ime najdes se sledilce in oglede
