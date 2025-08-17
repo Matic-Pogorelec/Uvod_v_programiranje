@@ -93,40 +93,24 @@ for šahist in tabela_skupna:
         opazovalci = skoraj_opazovalci.group(1)
     datum_vzorec = r'<div class="profile-header-details-value">(.*)</div> Joined'
     datum = (re.search(datum_vzorec,datoteka_za_ime).group(1))
-    tabela_razdelki.append([int(šahist_rang),šahist_username[1:-1],ime, priimek, int(elo),id,država[1:-1],država_številka,naslov,int(skupaj_igre),skupaj_zmage,skupaj_porazi,skupaj_remiji,strela_elo,metek_elo,odstrani_vejice_in_intigiraj(opazovalci),celine.get((drzave[str(država_številka)]),"Europe"),spremeni_tip_datuma(datum)])
-    
-for številka in range(len(tabela_razdelki)):
-   if " " in tabela_razdelki[številka][2] and tabela_razdelki[številka][3] == "":
-        ime_in_priimek = tabela_razdelki[številka][2].split()
-        print(ime_in_priimek)
-        tabela_razdelki[številka][2], tabela_razdelki[številka][3] = ime_in_priimek[0], ime_in_priimek[1]
-print(tabela_razdelki)
-moški_skupno = 0
-ženskse_skupno = 0
-ostalo = 0
-for oseba in tabela_razdelki:
-    ime = ""
-    if oseba[2] != "":
-        ime = ((oseba[2]).split())[0]
-    if d.get_gender(ime) in {"male", "mostly_male"}:
-        moški_skupno = moški_skupno + 1
-    elif d.get_gender(ime) in {"female", "mostly_female"}:
-        ženskse_skupno = ženskse_skupno + 1
-        print(f"{oseba[2]} {oseba[3]}-{d.get_gender(ime)}")
+    if " " in ime and priimek == "":
+        ime_in_priimek = ime.split()
+        ime, priimek = ime_in_priimek[0], ime_in_priimek[1]
+    spol = ""
+    prvo_ime = ime
+    if ime != "":
+        prvo_ime = (ime).split()[0]
+    spol = ""
+    if  d.get_gender(prvo_ime) in {"male", "mostly_male"}:
+        spol = "Moški"
+    elif d.get_gender(prvo_ime) in {"female", "mostly_female"}:
+        spol = "Ženska"
     else:
-        ostalo = ostalo + 1
-print(moški_skupno)
-print(ženskse_skupno)
-print(ostalo)
-for oseba in tabela_razdelki:
-    print(wikipedia_populacija()[oseba[6]])
-
+        spol = "Ni znano"
+    tabela_razdelki.append([int(šahist_rang),šahist_username[1:-1],ime, priimek, int(elo),id,država[1:-1],država_številka,naslov,int(skupaj_igre),skupaj_zmage,skupaj_porazi,skupaj_remiji,strela_elo,metek_elo,odstrani_vejice_in_intigiraj(opazovalci),celine.get((drzave[str(država_številka)]),"Europe"),spremeni_tip_datuma(datum), spol])
+print(tabela_razdelki)
 with open("Glavna_tabela.csv", "w") as dat:
-    dat.write("Rang,Uporabniško ime,Ime,Priimek,Elo,ID,Država,Številka države,Naslov,Skupno igre,Skupno zmage,Skupno remiji,Skupno porazi,Strela elo,Metek elo,Opazovalci,Celina,Datum,Leto,Reciprikal prebivalstva države\n")
+    dat.write("Rang,Uporabniško ime,Ime,Priimek,Elo,ID,Država,Številka države,Naslov,Skupno igre,Skupno zmage,Skupno remiji,Skupno porazi,Strela elo,Metek elo,Opazovalci,Celina,Datum,Leto,Reciprikal prebivalstva države,Spol\n")
     for oseba in tabela_razdelki:
-        dat.write(f"{oseba[0]},{oseba[1]},{oseba[2]},{oseba[3]},{oseba[4]},{oseba[5]},{oseba[6]},{oseba[7]},{oseba[8]},{oseba[9]},{oseba[10]},{oseba[12]},{oseba[11]},{oseba[13]},{oseba[14]},{oseba[15]},{oseba[16]},{oseba[17]},{int(oseba[17][:4])},{1 / (wikipedia_populacija()[oseba[6]])}\n")
-#print(requests.get(f"https://www.chess.com/callback/leaderboard/live/rapid?gameType=live&page={1}&totalPage=10000").text)
+        dat.write(f"{oseba[0]},{oseba[1]},{oseba[2]},{oseba[3]},{oseba[4]},{oseba[5]},{oseba[6]},{oseba[7]},{oseba[8]},{oseba[9]},{oseba[10]},{oseba[12]},{oseba[11]},{oseba[13]},{oseba[14]},{oseba[15]},{oseba[16]},{oseba[17]},{int(oseba[17][:4])},{1 / (wikipedia_populacija()[oseba[6]])},{oseba[18]}\n")
 
-#naredi queary za https://www.chess.com/callback/member/stats/{username}
-#ideja lahko narišeš graf, highest winning opponent
-#v totem filu ko ga ze mas za ime najdes se sledilce in oglede
