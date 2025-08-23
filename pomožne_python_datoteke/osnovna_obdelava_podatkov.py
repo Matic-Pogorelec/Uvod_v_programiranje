@@ -100,7 +100,7 @@ def končni_podatki_in_olepšava():
         # Sedaj lahko dodamo še leto.
         tabela[i].append(tabela[i][16][0:4])
         # Olepšamo še imena, priimke, uporabniška imena, države in oglede.
-        slovar = {"O&#039;": "'","&quot;":'"',",":'',"\n":"","\\u00fc":"ü"}
+        slovar = {"O&#039;": "'",",":'',"\n":"","\\u00fc":"ü"}
         for zamenjano, zamenjava in slovar.items():
             for število in {4,13,14,2,15}:
                 tabela[i][število] = tabela[i][število].replace(zamenjano,zamenjava)
