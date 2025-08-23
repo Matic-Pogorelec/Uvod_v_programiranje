@@ -1,6 +1,6 @@
 import re
 import requests
-import pomožne_python_datoteke.manjše_funkcije as manjše_funkcije
+import pomožne_python_datoteke.spol_funkcije as spol_funkcije
 import pomožne_python_datoteke.države_funkcije as države_funkcije
 import pomožne_python_datoteke.čas_funkcije as čas_funkcije
 
@@ -89,22 +89,20 @@ def končni_podatki_in_olepšava():
         if " " in tabela[i][13] and tabela[i][14] == "":
             ime_in_priimek = (tabela[i][13]).split() 
             tabela[i][13], tabela[i][14] = ime_in_priimek[0], ime_in_priimek[1]
-        # Dodamo spol za šahiste
-        tabela[i].append(manjše_funkcije.določi_spol(tabela[i][13]))
-        # Dodamo celino
+        # Dodamo spol za šahiste.
+        tabela[i].append(spol_funkcije.določi_spol(tabela[i][13]))
+        # Dodamo celino.
         tabela[i].append(celine.get(iz_števil_v_kode[tabela[i][5]],"Ni podatka"))
-        # Dodajmo obratno vrednost prebivalstva države
+        # Dodajmo obratno vrednost prebivalstva države.
         tabela[i].append(obrat_populacije(tabela[i][5]))
-        # Odstranimo vejice pri ogledih
-        tabela[i][15] = manjše_funkcije.odstrani_vejice(tabela[i][15])
-        # Spremenimo tip datuma
+        # Spremenimo tip datuma.
         tabela[i][16] = čas_funkcije.spremeni_tip_datuma(tabela[i][16])
-        # Sedaj lahko dodamo še leto
+        # Sedaj lahko dodamo še leto.
         tabela[i].append(tabela[i][16][0:4])
-        # Olepšamo še imena, priimke, uporabniška imena in države
-        slovar = {"O&#039;": "'","&quot":'"',",":'',"\n":"","\\u00fc":"ü"}
+        # Olepšamo še imena, priimke, uporabniška imena, države in oglede.
+        slovar = {"O&#039;": "'","&quot;":'"',",":'',"\n":"","\\u00fc":"ü"}
         for zamenjano, zamenjava in slovar.items():
-            for število in {4,13,14,2}:
+            for število in {4,13,14,2,15}:
                 tabela[i][število] = tabela[i][število].replace(zamenjano,zamenjava)
     return tabela
 

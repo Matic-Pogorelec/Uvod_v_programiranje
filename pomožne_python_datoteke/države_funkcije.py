@@ -1,6 +1,6 @@
 import re
 import requests
-import pomožne_python_datoteke.manjše_funkcije as manjše_funkcije
+
 def tabela_iz_števil_v_kode():
     """Pobere podatke o številkah ki predstavljajo države  in alpha-2 kodah, s spleta in jih spravi v slovar.
 
@@ -55,7 +55,7 @@ def obratna_vrednost_prebivalstva(niz_število,tabela_1,tabela_2,tabela_3):
     tabela_1,tabela_2,tabela_3 predstavljajo tabela_iz_števil_v_kode(), wikipedia_države_in_kode() in wikipedia_populacija()
     a so zaradi optimizacijskih razlgov parametri funkcije in niso v funkciji"""
     prebivalstvo = tabela_3.get(tabela_2.get(tabela_1.get(niz_število,"Ni znano"),"Ni znano"),"Ni znano")
-    prebivalstvo_število = manjše_funkcije.odstrani_vejice(prebivalstvo)
+    prebivalstvo_število = prebivalstvo.replace(",","")
     return (lambda x: x if x == "Ni znano" else 1/float(x))(prebivalstvo_število)
 
 

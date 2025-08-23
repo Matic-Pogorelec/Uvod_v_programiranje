@@ -1,17 +1,5 @@
 import gender_guesser.detector as gender
 d = gender.Detector()
-def zlepi(seznam):
-    """Funkcija sprejme seznam in "sešteje" vse elemente, to je zlepi vse nize v enega."""
-    if seznam == []:
-        return ""
-    else:
-        return seznam[0] + zlepi(seznam[1:])
-    
-
-def odstrani_vejice(število):
-    """Funkicja odstrani vejice iz števila, na koncu vrne objekt tipa int"""
-    return (zlepi((str(število).split(","))))
-
 
 def določi_spol(ime):
     """Funkcija na podlagi imena določi spol osebe. Vrne lahko Moški, Ženska in Ni znano."""
