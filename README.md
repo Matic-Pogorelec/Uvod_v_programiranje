@@ -50,14 +50,14 @@ Uvod_v_programiranje
 \
 &nbsp;&nbsp;&nbsp;&nbsp;**country-and-continent-codes-list-csv.csv**
 ## Uporaba
-Bralec mora imeti naložene knjižnice, ki so zapisane v razdelku [Knjižnice in podobne zadeve](#knjižnice-in-podobne-zadeve). Datoteko, ki jo bralec naloži z Githuba je potrebno odpreti znotraj VS Code. Potem je potrebno pognati datoteko main.py. Zbiranje podatkov traja približno pol ure, v tem času bralec ne rabi biti prisoten.(Ta korak pravzaprav sploh ni potreben, saj so podatki že zbrani v Glavna_tabela.csv, a so le ti stari, tako da, če bralec želi ažurne podatke, bo potrebno pognati main.py). Ko so podatki zbrani, je potrebno odpreti datoteko analiza.ipynb. Včasih Jupyter Notebook ne zazna takoj posodobitve dokumenta Glavna_tabela.csv. Po izkušnjah pomaga zapreti in povno odpreti VS Code. Vrstni red poganjanja celic v Jupyter Notebooku ni važen, potrebno je le začeti s prvo celico. Po končanem branju datoteke analiza.ipynb bo potrebno odpreti še datoteko analiza_elo.ipynb, a bo bralec o tem opomnjen na koncu datoteke analiza.ipynb.
+Bralec mora imeti naložene knjižnice, ki so zapisane v razdelku [Knjižnice in podobne zadeve](#knjižnice-in-podobne-zadeve). Datoteko, ki jo bralec naloži z Githuba je potrebno odpreti znotraj VS Code. Zatem je potrebno pognati datoteko main.py. Zbiranje podatkov traja približno pol ure, v tem času bralec ne rabi biti prisoten.Ta korak pravzaprav sploh ni potreben, saj so podatki že zbrani v Glavna_tabela.csv, a so le ti stari, tako da, če bralec želi ažurne podatke, bo potrebno pognati main.py. Ko so podatki zbrani, je potrebno odpreti datoteko analiza.ipynb. Včasih Jupyter Notebook ne zazna takoj posodobitve dokumenta Glavna_tabela.csv. Po izkušnjah pomaga zapreti in povno odpreti VS Code. Vrstni red poganjanja celic v Jupyter Notebooku ni važen,  v razpotrebno je le začeti s prvo celico. Po končanem branju datoteke analiza.ipynb bo potrebno odpreti še datoteko analiza_elo.ipynb, a bo bralec o tem opomnjen na koncu datoteke analiza.ipynb.
 ## Knjižnice in podobne zadeve
 Potrebno si je naložiti:
 * [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
 * [Numpy](https://numpy.org/install/)
 * [Jupyter Notebook](https://pypi.org/project/jupyter/)
 * [Matplotlib](https://matplotlib.org/stable/install/index.html)
-* [Gender guessser](https://matplotlib.org/stable/install/index.html)
+* [Gender guessser](https://pypi.org/project/gender-guesser/)
 * [Requests](https://pypi.org/project/requests/)
 * [Scipy](https://scipy.org/install/)
 * [ipympl](https://matplotlib.org/ipympl/)
