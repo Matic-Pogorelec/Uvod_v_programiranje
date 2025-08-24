@@ -28,9 +28,9 @@ Uvod_v_programiranje
 \
 &nbsp;&nbsp;**README.md**
 \
-&nbsp;&nbsp;main.py
+&nbsp;&nbsp;**main.py**
 \
-&nbsp;&nbsp;license
+&nbsp;&nbsp;**license**
 \
 &nbsp;&nbsp;**analiza.ipynb**
 \
