@@ -26,10 +26,12 @@ Projekt vključuje sledeče dokumente
 
 Uvod_v_programiranje
 \
-&nbsp;&nbsp;**README.md**\
+&nbsp;&nbsp;**README.md**
+\
 &nbsp;&nbsp;main.py
 \
 &nbsp;&nbsp;license
+\
 &nbsp;&nbsp;**analiza.ipynb**
 \
 &nbsp;&nbsp;**analiza_elo.ipynb**
