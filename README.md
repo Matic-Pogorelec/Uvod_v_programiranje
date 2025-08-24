@@ -60,4 +60,5 @@ Potrebno si je naložiti:
 * [Gender guessser](https://matplotlib.org/stable/install/index.html)
 * [Requests](https://pypi.org/project/requests/)
 * [Scipy](https://scipy.org/install/)
+* [ipympl](https://matplotlib.org/ipympl/)
 
